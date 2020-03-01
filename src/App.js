@@ -6,6 +6,8 @@ import MouseContainer from './MouseContainer';
 import IntervalHookCounter from './IntervalHookCounter';
 import DataFetching from './DataFetching';
 import UseReducerHook from './UseReducerHook';
+import { store } from './store/index';
+import { Provider } from 'react-redux';
 
 function App() {
   return (
@@ -14,8 +16,10 @@ function App() {
       {/* <HookMouse /> */}
       {/* <MouseContainer /> */}
       {/* <IntervalHookCounter /> */}
-      {/* <DataFetching /> */}
-      <UseReducerHook />
+      <Provider store={store}>
+        <DataFetching />
+      </Provider>
+      {/* <UseReducerHook /> */}
     </div>
   );
 }

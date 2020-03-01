@@ -1,36 +1,34 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions } from './store/Actions';
 
 function DataFetching() {
-    const [post, setPost] = useState({})
     const [id, setId] = useState(1)
-    const [idFromButtonClick,setIdFromButtonClick] = useState(1);
-    const onButtonClick = ()=>{
-        setIdFromButtonClick(id)
-    }
+    const dispatch = useDispatch();
+    const posts = useSelector(store => store?.sampleReducer?.posts)
+    const fetchPost = useCallback(() => {
+        dispatch(Actions.getPost(id))
+    }, [dispatch, id])
+    const stopReq = useCallback(() => {
+        dispatch(Actions.cancelReq())
+    }, [dispatch])
     useEffect(() => {
-        if (idFromButtonClick) {
-            axios.get(`https://jsonplaceholder.typicode.com/posts/${idFromButtonClick}`).then((res) => {
-                console.log(res)
-                setPost(res.data)
-            }).catch(err => {
-                console.log("err", err)
-            })
-        }
-    }, [idFromButtonClick])
+        dispatch(Actions.getPosts())
+    }, [dispatch])
+
 
     return (
         <div>
             <input value={id} onChange={(e) => { setId(e.target.value) }} />
-            <button onClick={onButtonClick} >Fetch Post</button>
-            {/* <ul>
+            <button onClick={fetchPost} >Fetch Post</button>
+            <button onClick={stopReq} >Stop Request</button>
+            <ul>
                 {
                     posts.map((v, i) => {
                         return <li key={i} >{v.title}</li>
                     })
                 }
-            </ul> */}
-            <p>{post.title}</p>
+            </ul>
         </div>
     )
 }
