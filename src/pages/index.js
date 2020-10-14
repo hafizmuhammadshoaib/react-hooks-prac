@@ -1,9 +1,10 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext,/*  useState  */ } from 'react';
 import { UserContext } from '../UserContext';
 import { login } from '../utils/login';
 
-export function Index() {
+function Index() {
     const { user, setUser } = useContext(UserContext);
+    // const [user, setUser] = useState();
 
     const onLogin = useCallback(async () => {
         const user = await login();
@@ -16,6 +17,7 @@ export function Index() {
             <pre>{JSON.stringify(user, null, 2)}</pre>
             {user ? (
                 <button
+                    id="logout"
                     onClick={() => {
                         // call logout
                         setUser(null);
@@ -25,6 +27,7 @@ export function Index() {
                 </button>
             ) : (
                     <button
+                        id="login"
                         onClick={onLogin}
                     >
                         login
@@ -33,3 +36,6 @@ export function Index() {
         </div>
     );
 }
+// Index.displayName = 'Index';
+
+export default Index

@@ -1,0 +1,10 @@
+{
+    "setupFiles": [
+        "<rootDir>/src/setupTests.js"
+    ],
+    "testRegex": "/*.test.js$",
+    "moduleDirectories": [
+        "node_modules",
+        "src"
+    ]
+}

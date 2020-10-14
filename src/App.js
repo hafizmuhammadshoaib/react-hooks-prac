@@ -4,13 +4,10 @@ import { Link, Route, BrowserRouter as Router } from 'react-router-dom';
 import { UserContext } from './UserContext';
 import { Index } from './pages';
 import { About } from './pages/about';
-import { LoaderContext } from './LoaderContext';
 
 function App() {
   const [user, setUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(false)
   const value = useMemo(() => ({ user, setUser }), [user, setUser])
-  const loadingValue = useMemo(() => ({ isLoading, setIsLoading }), [isLoading, setIsLoading])
   return (
     <Router>
       <div>
@@ -25,10 +22,8 @@ function App() {
           </ul>
         </nav>
         <UserContext.Provider value={value}>
-          <LoaderContext.Provider value={loadingValue}>
-            <Route path="/" exact component={Index} />
-            <Route path="/about/" component={About} />
-          </LoaderContext.Provider>
+          <Route path="/" exact component={Index} />
+          <Route path="/about/" component={About} />
         </UserContext.Provider>
       </div>
     </Router>
